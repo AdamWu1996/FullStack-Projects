@@ -1472,11 +1472,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/bomo/Documents/NET Prjojects/TodoApi/TodoApi.csproj",
+      "projectUniqueName": "/Users/bomo/Documents/FullStack Projects/TodoApi/TodoApi.csproj",
       "projectName": "TodoApi",
-      "projectPath": "/Users/bomo/Documents/NET Prjojects/TodoApi/TodoApi.csproj",
+      "projectPath": "/Users/bomo/Documents/FullStack Projects/TodoApi/TodoApi.csproj",
       "packagesPath": "/Users/bomo/.nuget/packages/",
-      "outputPath": "/Users/bomo/Documents/NET Prjojects/TodoApi/obj/",
+      "outputPath": "/Users/bomo/Documents/FullStack Projects/TodoApi/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/bomo/.nuget/NuGet/NuGet.Config"
