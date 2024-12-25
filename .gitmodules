@@ -1,0 +1,3 @@
+[submodule "mslearn-persist-data-ef-core"]
+	path = mslearn-persist-data-ef-core
+	url = https://github.com/MicrosoftDocs/mslearn-persist-data-ef-core
