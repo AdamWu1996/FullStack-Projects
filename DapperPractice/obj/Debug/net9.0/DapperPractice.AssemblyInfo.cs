@@ -10,12 +10,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("TodoApi")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("DapperPractice")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c8d9b072b7c1a00e292f6fc9bc52d76c69c4a16b")]
-[assembly: System.Reflection.AssemblyProductAttribute("TodoApi")]
-[assembly: System.Reflection.AssemblyTitleAttribute("TodoApi")]
+[assembly: System.Reflection.AssemblyProductAttribute("DapperPractice")]
+[assembly: System.Reflection.AssemblyTitleAttribute("DapperPractice")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // 由 MSBuild WriteCodeFragment 類別產生。
