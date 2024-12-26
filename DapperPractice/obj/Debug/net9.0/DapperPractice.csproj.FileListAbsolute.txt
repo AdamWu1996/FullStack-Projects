@@ -1,3 +1,9 @@
+/Users/bomo/Documents/FullStack Projects/DapperPractice/obj/Debug/net9.0/DapperPractice.csproj.AssemblyReference.cache
+/Users/bomo/Documents/FullStack Projects/DapperPractice/obj/Debug/net9.0/DapperPractice.GeneratedMSBuildEditorConfig.editorconfig
+/Users/bomo/Documents/FullStack Projects/DapperPractice/obj/Debug/net9.0/DapperPractice.AssemblyInfoInputs.cache
+/Users/bomo/Documents/FullStack Projects/DapperPractice/obj/Debug/net9.0/DapperPractice.AssemblyInfo.cs
+/Users/bomo/Documents/FullStack Projects/DapperPractice/obj/Debug/net9.0/DapperPractice.csproj.CoreCompileInputs.cache
+/Users/bomo/Documents/FullStack Projects/DapperPractice/obj/Debug/net9.0/DapperPractice.sourcelink.json
 /Users/bomo/Documents/FullStack Projects/DapperPractice/bin/Debug/net9.0/DapperPractice
 /Users/bomo/Documents/FullStack Projects/DapperPractice/bin/Debug/net9.0/DapperPractice.deps.json
 /Users/bomo/Documents/FullStack Projects/DapperPractice/bin/Debug/net9.0/DapperPractice.runtimeconfig.json
@@ -29,12 +35,6 @@
 /Users/bomo/Documents/FullStack Projects/DapperPractice/bin/Debug/net9.0/runtimes/win-arm64/native/e_sqlite3.dll
 /Users/bomo/Documents/FullStack Projects/DapperPractice/bin/Debug/net9.0/runtimes/win-x64/native/e_sqlite3.dll
 /Users/bomo/Documents/FullStack Projects/DapperPractice/bin/Debug/net9.0/runtimes/win-x86/native/e_sqlite3.dll
-/Users/bomo/Documents/FullStack Projects/DapperPractice/obj/Debug/net9.0/DapperPractice.csproj.AssemblyReference.cache
-/Users/bomo/Documents/FullStack Projects/DapperPractice/obj/Debug/net9.0/DapperPractice.GeneratedMSBuildEditorConfig.editorconfig
-/Users/bomo/Documents/FullStack Projects/DapperPractice/obj/Debug/net9.0/DapperPractice.AssemblyInfoInputs.cache
-/Users/bomo/Documents/FullStack Projects/DapperPractice/obj/Debug/net9.0/DapperPractice.AssemblyInfo.cs
-/Users/bomo/Documents/FullStack Projects/DapperPractice/obj/Debug/net9.0/DapperPractice.csproj.CoreCompileInputs.cache
-/Users/bomo/Documents/FullStack Projects/DapperPractice/obj/Debug/net9.0/DapperPractice.sourcelink.json
 /Users/bomo/Documents/FullStack Projects/DapperPractice/obj/Debug/net9.0/DapperPr.FE7C6F98.Up2Date
 /Users/bomo/Documents/FullStack Projects/DapperPractice/obj/Debug/net9.0/DapperPractice.dll
 /Users/bomo/Documents/FullStack Projects/DapperPractice/obj/Debug/net9.0/refint/DapperPractice.dll
