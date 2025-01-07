@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using FitnessTracker.Data;
 using FitnessTracker.Models;
+using Microsoft.EntityFrameworkCore;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -15,66 +16,52 @@ public class WorkoutController : ControllerBase
         _workoutService = workoutService;
     }
 
-    // GET api/workout
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<WorkoutData>>> GetWorkouts()
-    {
-        var workouts = await _context.Workouts.ToListAsync();
-        return Ok(workouts);
-    }
-
-    // GET api/workout/{id}
-    [HttpGet("{id}")]
-    public async Task<ActionResult<WorkoutData>> GetWorkout(int id)
-    {
-        var workout = await _context.Workouts.FindAsync(id);
-
-        if (workout == null)
-        {
-            return NotFound();
-        }
-
-        return workout;
-    }
-
-    // POST api/workout
     [HttpPost]
-    public async Task<ActionResult<WorkoutData>> PostWorkout(WorkoutData workout)
+    public async Task<IActionResult> AddWorkoutData([FromBody] WorkoutData data)
     {
-        _context.Workouts.Add(workout);
-        await _context.SaveChangesAsync();
-
-        return CreatedAtAction(nameof(GetWorkout), new { id = workout.Id }, workout);
+        if (ModelState.IsValid)
+        {
+            _context.WorkoutDatas.Add(data);
+            await _context.SaveChangesAsync();
+            return Ok(data);
+        }
+        return BadRequest(ModelState);
     }
-
-    // PUT api/workout/{id}
+    [HttpGet]
+    public async Task<IActionResult> GetAllWorkoutData()
+    {
+        var data = await _context.WorkoutDatas.ToListAsync();
+        return Ok(data);
+    }
+    [HttpGet("user/{userId}")]
+    public async Task<IActionResult> GetWorkoutDataByUser(int userId)
+    {
+        var data = await _context.WorkoutDatas.Where(w => w.UserId == userId).ToListAsync();
+        return Ok(data);
+    }
     [HttpPut("{id}")]
-    public async Task<IActionResult> PutWorkout(int id, WorkoutData workout)
+    public async Task<IActionResult> UpdateWorkoutData(int id, [FromBody] WorkoutData data)
     {
-        if (id != workout.Id)
-        {
-            return BadRequest();
-        }
+        var existingData = await _context.WorkoutDatas.FindAsync(id);
+        if (existingData == null) return NotFound();
 
-        _context.Entry(workout).State = EntityState.Modified;
+        existingData.ExerciseName = data.ExerciseName;
+        existingData.Weight = data.Weight;
+        existingData.Repetitions = data.Repetitions;
+        existingData.WorkoutDate = data.WorkoutDate;
+
         await _context.SaveChangesAsync();
-
-        return NoContent();
+        return Ok(existingData);
     }
-
-    // DELETE api/workout/{id}
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteWorkout(int id)
+    public async Task<IActionResult> DeleteWorkoutData(int id)
     {
-        var workout = await _context.Workouts.FindAsync(id);
-        if (workout == null)
-        {
-            return NotFound();
-        }
+        var data = await _context.WorkoutDatas.FindAsync(id);
+        if (data == null) return NotFound();
 
-        _context.Workouts.Remove(workout);
+        _context.WorkoutDatas.Remove(data);
         await _context.SaveChangesAsync();
-
-        return NoContent();
+        return Ok();
     }
+
 }

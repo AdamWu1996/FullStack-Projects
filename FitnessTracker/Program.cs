@@ -11,6 +11,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 // 註冊 UserService 和 IUserService
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IWorkoutService, WorkoutService>();
 
 // 註冊 API 控制器服務
 builder.Services.AddControllers();

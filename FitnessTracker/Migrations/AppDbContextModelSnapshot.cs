@@ -17,7 +17,7 @@ namespace FitnessTracker.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.2")
+                .HasAnnotation("ProductVersion", "8.0.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
@@ -168,8 +168,17 @@ namespace FitnessTracker.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("longtext");
 
+                    b.Property<string>("GoogleAvatarUrl")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("GoogleId")
+                        .HasColumnType("longtext");
+
                     b.Property<float>("Height")
                         .HasColumnType("float");
+
+                    b.Property<bool>("IsGoogleLinked")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
@@ -196,9 +205,6 @@ namespace FitnessTracker.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<float>("CaloriesBurned")
-                        .HasColumnType("float");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
@@ -208,11 +214,20 @@ namespace FitnessTracker.Migrations
                     b.Property<string>("ExerciseName")
                         .HasColumnType("longtext");
 
+                    b.Property<int>("Repetitions")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Sets")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
+
+                    b.Property<float>("Weight")
+                        .HasColumnType("float");
 
                     b.Property<DateTime>("WorkoutDate")
                         .HasColumnType("datetime(6)");
@@ -221,7 +236,7 @@ namespace FitnessTracker.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("WorkoutData");
+                    b.ToTable("WorkoutDatas");
                 });
 
             modelBuilder.Entity("FitnessTracker.Models.Goal", b =>

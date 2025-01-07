@@ -6,8 +6,10 @@ namespace FitnessTracker.Models
         public int UserId { get; set; }
         public DateTime WorkoutDate { get; set; }
         public string? ExerciseName { get; set; }
+        public int Sets { get; set; }
         public int Duration { get; set; }
-        public float CaloriesBurned { get; set; }
+        public int Repetitions { get; set; }
+        public float Weight { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
 

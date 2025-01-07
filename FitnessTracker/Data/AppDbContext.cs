@@ -8,7 +8,7 @@ namespace FitnessTracker.Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<WorkoutData> WorkoutData { get; set; }
+        public DbSet<WorkoutData> WorkoutDatas { get; set; }
         public DbSet<Goal> Goals { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<SharedData> SharedData { get; set; }
