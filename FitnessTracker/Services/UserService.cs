@@ -45,5 +45,27 @@ namespace FitnessTracker.Services
                 await _context.SaveChangesAsync();
             }
         }
+        public async Task<User> RegisterOrUpdateGoogleUserAsync(string email, string name)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.Email == email);
+            if (user == null)
+            {
+                user = new User
+                {
+                    Email = email,
+                    Name = name,
+                    CreatedAt = DateTime.UtcNow
+                };
+                _context.Users.Add(user);
+            }
+            else
+            {
+                user.UpdatedAt = DateTime.UtcNow;
+            }
+
+            await _context.SaveChangesAsync();
+            return user;
+        }
+
     }
 }

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "6rBD1VrLnqQ=",
+  "dgSpecHash": "Xq74A+pyhAM=",
   "success": true,
   "projectFilePath": "/Users/bomo/Documents/FullStack Projects/FitnessTracker/FitnessTracker.Tests/FitnessTracker.Tests.csproj",
   "expectedPackageFiles": [
@@ -9,7 +9,8 @@
     "/Users/bomo/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/Users/bomo/.nuget/packages/microsoft.aspnetcore.authentication.abstractions/2.2.0/microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
     "/Users/bomo/.nuget/packages/microsoft.aspnetcore.authentication.core/2.2.0/microsoft.aspnetcore.authentication.core.2.2.0.nupkg.sha512",
-    "/Users/bomo/.nuget/packages/microsoft.aspnetcore.authorization/2.2.0/microsoft.aspnetcore.authorization.2.2.0.nupkg.sha512",
+    "/Users/bomo/.nuget/packages/microsoft.aspnetcore.authentication.google/8.0.0/microsoft.aspnetcore.authentication.google.8.0.0.nupkg.sha512",
+    "/Users/bomo/.nuget/packages/microsoft.aspnetcore.authorization/8.0.0/microsoft.aspnetcore.authorization.8.0.0.nupkg.sha512",
     "/Users/bomo/.nuget/packages/microsoft.aspnetcore.authorization.policy/2.2.0/microsoft.aspnetcore.authorization.policy.2.2.0.nupkg.sha512",
     "/Users/bomo/.nuget/packages/microsoft.aspnetcore.hosting.abstractions/2.2.0/microsoft.aspnetcore.hosting.abstractions.2.2.0.nupkg.sha512",
     "/Users/bomo/.nuget/packages/microsoft.aspnetcore.hosting.server.abstractions/2.2.0/microsoft.aspnetcore.hosting.server.abstractions.2.2.0.nupkg.sha512",
@@ -18,6 +19,7 @@
     "/Users/bomo/.nuget/packages/microsoft.aspnetcore.http.extensions/2.2.0/microsoft.aspnetcore.http.extensions.2.2.0.nupkg.sha512",
     "/Users/bomo/.nuget/packages/microsoft.aspnetcore.http.features/2.2.0/microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
     "/Users/bomo/.nuget/packages/microsoft.aspnetcore.jsonpatch/8.0.0/microsoft.aspnetcore.jsonpatch.8.0.0.nupkg.sha512",
+    "/Users/bomo/.nuget/packages/microsoft.aspnetcore.metadata/8.0.0/microsoft.aspnetcore.metadata.8.0.0.nupkg.sha512",
     "/Users/bomo/.nuget/packages/microsoft.aspnetcore.mvc.abstractions/2.2.0/microsoft.aspnetcore.mvc.abstractions.2.2.0.nupkg.sha512",
     "/Users/bomo/.nuget/packages/microsoft.aspnetcore.mvc.core/2.2.5/microsoft.aspnetcore.mvc.core.2.2.5.nupkg.sha512",
     "/Users/bomo/.nuget/packages/microsoft.aspnetcore.mvc.newtonsoftjson/8.0.0/microsoft.aspnetcore.mvc.newtonsoftjson.8.0.0.nupkg.sha512",

@@ -1,44 +1,36 @@
-using FitnessTracker.Services;
-using FitnessTracker.Data;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 設定資料庫連線字串
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))));
-
-// 註冊 UserService 和 IUserService
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IWorkoutService, WorkoutService>();
-
-// 註冊 API 控制器服務
-builder.Services.AddControllers();
-
-// 註冊 Swagger 服務
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(options =>
+// 設定 Google 驗證
+builder.Services.AddAuthentication(options =>
 {
-    options.SwaggerDoc("v1", new OpenApiInfo
-    {
-        Title = "FitnessTracker API",
-        Version = "v1",
-        Description = "API for managing fitness tracking data"
-    });
+    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme; // 設置默認的 SignInScheme
+})
+.AddCookie(options =>
+{
+    options.LoginPath = "/auth/login";
+    options.LogoutPath = "/auth/logout";
+})
+.AddGoogle(options =>
+{
+    options.ClientId = "202351897366-m7cg2q9pdj06s3cjcgjf49ohc9e9et4h.apps.googleusercontent.com";
+    options.ClientSecret = "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";
+    options.CallbackPath = "/oauth2callback"; // 配置與 GCP 重定向 URI 一致
+    options.Scope.Add("email"); // 確保返回 email
+    options.Scope.Add("profile"); // 確保返回用戶基本資料（如 name）
 });
+
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-// 配置中介軟體
-app.UseSwagger();  // 啟用 Swagger 生成器
-app.UseSwaggerUI(options =>
-{
-    options.SwaggerEndpoint("/swagger/v1/swagger.json", "FitnessTracker API v1");  // 設定 Swagger UI 的接口文檔路徑
-    options.RoutePrefix = "swagger";  // 設定 Swagger 頁面的 URL 路徑
-});
-
+app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapControllers();
 
 app.Run();
