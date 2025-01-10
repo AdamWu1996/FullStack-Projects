@@ -2,11 +2,19 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Mvc;
+using FitnessTracker.Services;
 
 namespace FitnessTracker.Controllers
 {
     public class AuthController : Controller
     {
+        private readonly IUserService _userService;
+
+        public AuthController(IUserService userService)
+        {
+            _userService = userService;
+        }
+
         [HttpGet("auth/login")]
         public IActionResult Login()
         {
@@ -30,28 +38,34 @@ namespace FitnessTracker.Controllers
 
             Console.WriteLine("Google Authentication Succeeded!");
 
-            // 正確提取 Email 和 Name
             var email = authenticateResult.Principal.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress")?.Value;
             var name = authenticateResult.Principal.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name")?.Value;
+            var googleId = authenticateResult.Principal.FindFirst("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
+            var avatarUrl = authenticateResult.Principal.FindFirst("urn:google:picture")?.Value;
 
-            // 確認提取的資訊
-            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(name) || string.IsNullOrEmpty(googleId))
             {
-                Console.WriteLine("Failed to retrieve email or name.");
+                Console.WriteLine("Failed to retrieve user information.");
                 return BadRequest("Unable to retrieve user information.");
             }
 
             Console.WriteLine($"User Email: {email}");
             Console.WriteLine($"User Name: {name}");
+            Console.WriteLine($"Google ID: {googleId}");
+            Console.WriteLine($"Avatar URL: {avatarUrl}");
 
-            // 在這裡可以保存用戶資訊到資料庫
-            // UserService.AddOrUpdateUser(email, name);
+            // 更新用戶信息
+            var user = await _userService.RegisterOrUpdateGoogleUserAsync(email, name, googleId, avatarUrl);
 
-            // 成功後重定向到首頁或其他頁面
+            if (user == null)
+            {
+                return BadRequest("Failed to register or update user.");
+            }
+
+            // TODO: 為用戶生成 JWT 或處理應用的 Session 管理
+
             return RedirectToAction("Index", "Home");
         }
-
-
 
         [HttpPost("auth/logout")]
         public async Task<IActionResult> Logout()

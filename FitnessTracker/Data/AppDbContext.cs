@@ -18,6 +18,11 @@ namespace FitnessTracker.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            //避免資料重複
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.GoogleId)
+                .IsUnique();
+
             // 定義資料表的外鍵關聯等
             modelBuilder.Entity<WorkoutData>()
                 .HasOne(w => w.User)
