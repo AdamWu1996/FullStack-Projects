@@ -45,33 +45,47 @@ namespace FitnessTracker.Services
                 await _context.SaveChangesAsync();
             }
         }
-        public async Task<User> RegisterOrUpdateGoogleUserAsync(string email, string name, string googleId, string? avatarUrl)
+        public async Task<User> RegisterOrUpdateGoogleUserAsync(string email, string name, string googleId, string avatarUrl)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
 
             if (user == null)
             {
+                // 新增用戶
                 user = new User
                 {
                     Email = email,
                     Name = name,
                     GoogleId = googleId,
                     GoogleAvatarUrl = avatarUrl,
-                    IsGoogleLinked = true,
-                    CreatedAt = DateTime.UtcNow
+                    IsGoogleLinked = true
                 };
+
                 _context.Users.Add(user);
             }
             else
             {
-                user.GoogleId = googleId;
-                user.GoogleAvatarUrl = avatarUrl;
+                // 更新用戶
+                if (!string.IsNullOrEmpty(googleId) && user.GoogleId != googleId)
+                {
+                    user.GoogleId = googleId;
+                }
+
+                if (!string.IsNullOrEmpty(avatarUrl))
+                {
+                    user.GoogleAvatarUrl = avatarUrl;
+                }
+
                 user.IsGoogleLinked = true;
-                user.UpdatedAt = DateTime.UtcNow;
+
+                // 可選：決定是否覆蓋名稱
+                user.Name = name;
             }
 
             await _context.SaveChangesAsync();
+
             return user;
         }
+
     }
 }

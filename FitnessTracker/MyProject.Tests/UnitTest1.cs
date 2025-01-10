@@ -10,8 +10,12 @@ using FitnessTracker.Services;
 
 namespace FitnessTracker.Tests
 {
-    public class UserServiceTests
+    public class UserServiceTests : IDisposable
     {
+        public void Dispose()
+        {
+            _context.Database.ExecuteSqlRaw("DELETE FROM Users");
+        }
         private readonly UserService _userService;
         private readonly DbContextOptions<AppDbContext> _options;
         private readonly AppDbContext _context;
@@ -27,13 +31,16 @@ namespace FitnessTracker.Tests
             // _userService = new UserService(_context);
 
             // 使用真實的資料庫配置
-            .UseMySql("Server=localhost;Database=FitnessTrackerDb;User=root;",
-          ServerVersion.AutoDetect("Server=localhost;Database=FitnessTrackerDb;User=root;"))
-
+            _options = new DbContextOptionsBuilder<AppDbContext>()
+                        .UseMySql("Server=localhost;Database=FitnessTrackerDB;User=root;Password=u831i6j6;",
+                                ServerVersion.AutoDetect("Server=localhost;Database=FitnessTrackerDB;User=root;Password=u831i6j6;"))
+                        .Options;
 
 
             _context = new AppDbContext(_options);
             _userService = new UserService(_context);
+            _context.Database.EnsureDeleted(); // 清理測試資料
+            _context.Database.EnsureCreated(); // 初始化資料庫
         }
 
         [Fact]
@@ -62,35 +69,36 @@ namespace FitnessTracker.Tests
         {
             // Arrange
             var email = "testuser@example.com";
-            var name = "Original User";
+            var originalName = "Original User";
+            var newName = "Updated User";
             var googleId = "google123";
-            var avatarUrl = "https://example.com/original-avatar.jpg";
 
             var existingUser = new User
             {
                 Email = email,
-                Name = name,
-                GoogleId = null,
+                Name = originalName,
+                GoogleId = null, // 初始用戶無 GoogleId
                 GoogleAvatarUrl = null,
                 IsGoogleLinked = false
             };
             _context.Users.Add(existingUser);
             await _context.SaveChangesAsync();
 
-            var newGoogleId = "google456";
+            var newGoogleId = "google123";
             var newAvatarUrl = "https://example.com/new-avatar.jpg";
 
             // Act
-            var user = await _userService.RegisterOrUpdateGoogleUserAsync(email, name, newGoogleId, newAvatarUrl);
+            var user = await _userService.RegisterOrUpdateGoogleUserAsync(email, newName, newGoogleId, newAvatarUrl);
 
             // Assert
             Assert.NotNull(user);
             Assert.Equal(email, user.Email);
-            Assert.Equal(name, user.Name); // Name may remain unchanged
+            Assert.Equal(newName, user.Name); // 預期名稱被更新
             Assert.Equal(newGoogleId, user.GoogleId);
             Assert.Equal(newAvatarUrl, user.GoogleAvatarUrl);
             Assert.True(user.IsGoogleLinked);
         }
+
 
         [Fact]
         public async Task RegisterOrUpdateGoogleUserAsync_ShouldThrowException_WhenGoogleIdIsDuplicated()
@@ -104,22 +112,17 @@ namespace FitnessTracker.Tests
                 GoogleId = googleId,
                 IsGoogleLinked = true
             });
-            _context.Users.Add(new User
-            {
-                Email = "user2@example.com",
-                Name = "User2",
-                GoogleId = googleId,
-                IsGoogleLinked = true
-            });
             await _context.SaveChangesAsync();
 
-            var email = "user3@example.com";
-            var name = "User3";
+            var email = "user2@example.com";
+            var name = "User2";
 
             // Act & Assert
-            await Assert.ThrowsAsync<DbUpdateException>(() =>
+            var exception = await Assert.ThrowsAsync<DbUpdateException>(() =>
                 _userService.RegisterOrUpdateGoogleUserAsync(email, name, googleId, null));
 
+            Assert.Contains("Duplicate entry", exception.InnerException.Message);
         }
+
     }
 }
